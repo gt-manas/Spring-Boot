@@ -1,0 +1,37 @@
+val invFile = sc.textFile("file:////home/cloudera/datascience/Inventory.txt") 
+val invPairRDD = invFile.map(x => x.split(",")).map(x => (x(0), x(2))
+val prodFile = sc.textFile("file:////home/cloudera/datascience/Product.txt")
+val invPairRDD = invFile.map(x => x.split(",")).map(x => (x(0), x(2))
+val invProdJoin = prodPairRDD.join(invPairRDD)invProdJoin.sortBy(x => x._1)
+
+
+
+
+import org.apache.spark.sql._ 
+import sqlContext.implicits._case 
+class Inventory(prodID : String, whid : String, qoh : Int, qtyOrd :Int , reordLvl : Int)
+case class Product(prodID : String, prodname : String, suppliername : String)
+val invFile = sc.textFile("file:////home/cloudera/datascience/Inventory.txt")
+val invRDD = invFile.map(x => x.split(","))
+val invRowRDD = invRDD.map(x => Inventory(x(0), x(1), x(2).toInt, x(3).toInt, x(4).toInt))
+val invDF = invRowRDD.toDF()
+
+
+import org.apache.spark.sql._ 
+import sqlContext.implicits._case 
+class Inventory(prodID : String, whid : String, qoh : Int, qtyOrd :Int , reordLvl : Int)
+case class Product(prodID : String, prodname : String, suppliername : String)
+val invFile = sc.textFile("file:////home/cloudera/datascience/Inventory.txt") 
+val invRDD = invFile.map(x => x.split(","))
+val invRowRDD = invRDD.map(x => Inventory(x(0), x(1), x(2).toInt, x(3).toInt, x(4).toInt))
+val invDF = invRowRDD.toDF()invDF.registerTempTable("Inventory")
+val prodFile = sc.textFile("file:////home/cloudera/datascience/Product.txt")
+val prodRDD = prodFile.map(x => x.split(","))val prodRowRDD = prodRDD.map(x => Product(x(0), x(1), x(2)))
+val prodDF = prodRowRDD.toDF()prodDF.registerTempTable("Product")
+
+88888888888888888888888888888
+https://github.com/meniluca/spark-scala-maven-boilerplate-project
+
+
+
+        <dependency>            <groupId>org.apache.spark</groupId>            <artifactId>spark-core_2.10</artifactId>            <version>1.6.0</version>        </dependency>        <dependency>            <groupId>org.apache.spark</groupId>            <artifactId>spark-streaming_2.10</artifactId>            <version>1.6.0</version>        </dependency>        <dependency>            <groupId>org.apache.spark</groupId>            <artifactId>spark-sql_2.10</artifactId>            <version>1.6.0</version>        </dependency>        <dependency>            <groupId>org.apache.spark</groupId>            <artifactId>spark-streaming-kafka_2.10</artifactId>            <version>1.6.0</version>        </dependency>
